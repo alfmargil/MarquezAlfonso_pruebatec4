@@ -23,7 +23,7 @@ public class HotelController {
         }
     }
 
-    @GetMapping("")
+    @GetMapping("/listAll")
     public List<Hotel> getHotels() {
         return hotelService.getHotels();
 
@@ -33,11 +33,11 @@ public class HotelController {
     public List<Hotel> getAvailableHotels(
             @RequestParam("dateFrom") String dateFrom,
             @RequestParam("dateTo") String dateTo,
-            @RequestParam("destination") String destination)
+            @RequestParam("destination") String place)
     {
         LocalDate fromDate = LocalDate.parse(dateFrom);
         LocalDate toDate = LocalDate.parse(dateTo);
-        return hotelService.findAvailableHotels(fromDate, toDate, destination);
+        return hotelService.findAvailableHotels(fromDate, toDate, place);
 
     }
 }

@@ -1,5 +1,6 @@
 package com.AlfonsoMarquez.PruebaTecnica4.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,21 +14,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Booking {
+public class RoomBooking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int peopleQ;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate checkIn;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate checkOut;
-    private String roomType;
     private int nights;
-    private String place;
     @ManyToOne
-    @JoinColumn(name = "hotel_code", referencedColumnName = "hotelCode")
     private Hotel hotel;
-    @OneToMany(cascade = CascadeType.ALL)
+    private Room room;
+    @ManyToMany
     private List<Person> hosts;
 
 }

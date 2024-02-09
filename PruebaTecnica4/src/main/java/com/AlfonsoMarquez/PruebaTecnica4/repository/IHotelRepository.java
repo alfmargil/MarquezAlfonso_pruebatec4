@@ -10,12 +10,6 @@ import java.util.List;
 
 public interface IHotelRepository extends JpaRepository<Hotel,String> {
 
-    @Query("SELECT h FROM Hotel h WHERE h.destination = :destination " +
-            "AND h.availableFrom <= :toDate AND h.availableTo >= :fromDate")
-    List<Hotel> findAvailableHotels(
-            @Param("fromDate") LocalDate fromDate,
-            @Param("toDate") LocalDate toDate,
-            @Param("destination") String destination);
 }
 
 

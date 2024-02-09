@@ -4,9 +4,7 @@ import com.AlfonsoMarquez.PruebaTecnica4.util.BooleanDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,17 +23,11 @@ import java.util.regex.Pattern;
 @Entity
 public class Hotel {
     @Id
-    String hotelCode;
-    String name;
-    String place;
-    String roomType;
-    Double nightPrice;
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    LocalDate availableFrom;
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    LocalDate availableTo;
-    @JsonDeserialize(using = BooleanDeserializer.class)
-    Boolean available;
+    private String hotelCode;
+    private String name;
+    private String place;
+    @OneToMany
+    private List<Room> rooms;
 
     /* CAMBIAR A OTRO SITIO
 

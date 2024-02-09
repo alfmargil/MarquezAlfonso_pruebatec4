@@ -22,9 +22,11 @@ public class Flight {
     String destination;
     String seatType;
     Double pricePerPerson;
+
+    /*
     @JsonFormat(pattern = "dd/MM/yyyy")
     LocalDate departureDate;
     @JsonFormat(pattern = "dd/MM/yyyy")
     LocalDate returnDate;
-
+    */
 }
