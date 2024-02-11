@@ -15,29 +15,18 @@ public class HotelController {
     @Autowired
     private IHotelService hotelService;
 
-    @PostMapping("/loadHotels")
-    public void loadHotelBatch(@RequestBody List<Hotel> hotels)
+    @PostMapping("/new")
+    public void loadHotels(@RequestBody List<Hotel> hotels)
     {
         for (Hotel hotel : hotels) {
-            hotelService.saveHotel(hotel);
+            hotelService.saveHotelWithRooms(hotel);
         }
     }
 
     @GetMapping("/listAll")
     public List<Hotel> getHotels() {
         return hotelService.getHotels();
-
     }
 
-    @GetMapping("")
-    public List<Hotel> getAvailableHotels(
-            @RequestParam("dateFrom") String dateFrom,
-            @RequestParam("dateTo") String dateTo,
-            @RequestParam("destination") String place)
-    {
-        LocalDate fromDate = LocalDate.parse(dateFrom);
-        LocalDate toDate = LocalDate.parse(dateTo);
-        return hotelService.findAvailableHotels(fromDate, toDate, place);
 
-    }
 }

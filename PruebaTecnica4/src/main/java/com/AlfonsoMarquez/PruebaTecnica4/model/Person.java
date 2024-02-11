@@ -18,7 +18,7 @@ public class Person {
     private Long id;
     private String name;
     private String email;
-    @ManyToMany
+    @ManyToMany(mappedBy = "hosts")
     private List<RoomBooking> roomBookings;
 
 }

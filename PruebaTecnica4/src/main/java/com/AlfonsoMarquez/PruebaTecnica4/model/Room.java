@@ -2,6 +2,7 @@ package com.AlfonsoMarquez.PruebaTecnica4.model;
 
 import com.AlfonsoMarquez.PruebaTecnica4.util.BooleanDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,15 +20,17 @@ import java.util.List;
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long roomId;
+    private String roomId;
+    private Long roomNumber;
     private String roomType;
     private Double nightPrice;
     @ManyToOne
+    @JoinColumn(name = "hotel_code")
+    @JsonIgnore
     private Hotel hotel;
-    @OneToMany
+    @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
     private List<RoomBooking> roomBookings;
-    /*@JsonDeserialize(using = BooleanDeserializer.class)
-    private Boolean available;*/
+
+
 
 }

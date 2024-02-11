@@ -26,7 +26,7 @@ public class Hotel {
     private String hotelCode;
     private String name;
     private String place;
-    @OneToMany
+    @OneToMany(mappedBy = "hotel")
     private List<Room> rooms;
 
     /* CAMBIAR A OTRO SITIO

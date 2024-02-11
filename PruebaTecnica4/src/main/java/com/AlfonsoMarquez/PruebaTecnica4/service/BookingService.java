@@ -1,7 +1,7 @@
 package com.AlfonsoMarquez.PruebaTecnica4.service;
 
 import com.AlfonsoMarquez.PruebaTecnica4.model.RoomBooking;
-import com.AlfonsoMarquez.PruebaTecnica4.repository.IBookingRepository;
+import com.AlfonsoMarquez.PruebaTecnica4.repository.IRoomBookingRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IHotelRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.List;
 public class BookingService implements IBookingService {
 
     @Autowired
-    private IBookingRepository bookingRepository;
+    private IRoomBookingRepository bookingRepository;
     @Autowired
     private IPersonRepository personRepository;
     @Autowired
@@ -26,7 +26,7 @@ public class BookingService implements IBookingService {
 
     @Override
     public double makeBooking(RoomBooking roomBooking) {
-
+        return 1;
     }
 
     @Override

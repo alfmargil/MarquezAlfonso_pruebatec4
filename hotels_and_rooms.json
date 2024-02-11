@@ -1,0 +1,68 @@
+[
+    {
+        "hotelCode": "HOT-001",
+        "name": "Hotel Barcelona",
+        "place": "Barcelona",
+        "rooms": [
+            {
+                "roomNumber": 1,
+                "roomType": "Single",
+                "nightPrice": 100.0
+            },
+            {
+                "roomNumber": 2,
+                "roomType": "Double",
+                "nightPrice": 150.0
+            },
+            {
+                "roomNumber": 3,
+                "roomType": "Suite",
+                "nightPrice": 250.0
+            }
+        ]
+    },
+    {
+        "hotelCode": "HOT-002",
+        "name": "Hotel Madrid",
+        "place": "Madrid",
+        "rooms": [
+            {
+                "roomNumber": 2,
+                "roomType": "Single",
+                "nightPrice": 120.0
+            },
+            {
+                "roomNumber": 1,
+                "roomType": "Double",
+                "nightPrice": 180.0
+            },
+            {
+                "roomNumber": 7,
+                "roomType": "Family",
+                "nightPrice": 280.0
+            }
+        ]
+    },
+    {
+        "hotelCode": "HOT-003",
+        "name": "Hotel Paris",
+        "place": "Paris",
+        "rooms": [
+            {
+                "roomNumber": 20,
+                "roomType": "Single",
+                "nightPrice": 110.0
+            },
+            {
+                "roomNumber": 313,
+                "roomType": "Double",
+                "nightPrice": 160.0
+            },
+            {
+                "roomNumber": 4,
+                "roomType": "Suite",
+                "nightPrice": 270.0
+            }
+        ]
+    }
+]

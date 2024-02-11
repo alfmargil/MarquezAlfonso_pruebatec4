@@ -17,7 +17,7 @@ import java.util.List;
 public class RoomBooking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int peopleQ;
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -26,9 +26,14 @@ public class RoomBooking {
     private LocalDate checkOut;
     private int nights;
     @ManyToOne
-    private Hotel hotel;
+    @JoinColumn(name = "room_id")
     private Room room;
     @ManyToMany
+    @JoinTable(
+            name="Booking_Hosts",
+            joinColumns = @JoinColumn(name = "booking_id"),
+            inverseJoinColumns = @JoinColumn(name="person_id")
+    )
     private List<Person> hosts;
 
 }
