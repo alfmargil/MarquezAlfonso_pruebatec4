@@ -5,19 +5,25 @@
         "place": "Barcelona",
         "rooms": [
             {
+                "roomId": "HOT-001-1",
                 "roomNumber": 1,
                 "roomType": "Single",
-                "nightPrice": 100.0
+                "nightPrice": 100.0,
+                "roomBookings": []
             },
             {
+                "roomId": "HOT-001-2",
                 "roomNumber": 2,
                 "roomType": "Double",
-                "nightPrice": 150.0
+                "nightPrice": 150.0,
+                "roomBookings": []
             },
             {
+                "roomId": "HOT-001-3",
                 "roomNumber": 3,
                 "roomType": "Suite",
-                "nightPrice": 250.0
+                "nightPrice": 250.0,
+                "roomBookings": []
             }
         ]
     },
@@ -27,19 +33,25 @@
         "place": "Madrid",
         "rooms": [
             {
-                "roomNumber": 2,
-                "roomType": "Single",
-                "nightPrice": 120.0
-            },
-            {
+                "roomId": "HOT-002-1",
                 "roomNumber": 1,
                 "roomType": "Double",
-                "nightPrice": 180.0
+                "nightPrice": 180.0,
+                "roomBookings": []
             },
             {
+                "roomId": "HOT-002-2",
+                "roomNumber": 2,
+                "roomType": "Single",
+                "nightPrice": 120.0,
+                "roomBookings": []
+            },
+            {
+                "roomId": "HOT-002-7",
                 "roomNumber": 7,
                 "roomType": "Family",
-                "nightPrice": 280.0
+                "nightPrice": 280.0,
+                "roomBookings": []
             }
         ]
     },
@@ -49,19 +61,53 @@
         "place": "Paris",
         "rooms": [
             {
+                "roomId": "HOT-003-20",
                 "roomNumber": 20,
                 "roomType": "Single",
-                "nightPrice": 110.0
+                "nightPrice": 110.0,
+                "roomBookings": []
             },
             {
+                "roomId": "HOT-003-313",
                 "roomNumber": 313,
                 "roomType": "Double",
-                "nightPrice": 160.0
+                "nightPrice": 160.0,
+                "roomBookings": []
             },
             {
+                "roomId": "HOT-003-4",
                 "roomNumber": 4,
                 "roomType": "Suite",
-                "nightPrice": 270.0
+                "nightPrice": 270.0,
+                "roomBookings": []
+            }
+        ]
+    },
+    {
+        "hotelCode": "HOT-004",
+        "name": "Hotel Barcelo",
+        "place": "Huelva",
+        "rooms": [
+            {
+                "roomId": "HOT-004-1",
+                "roomNumber": 1,
+                "roomType": "Single",
+                "nightPrice": 200.0,
+                "roomBookings": []
+            },
+            {
+                "roomId": "HOT-004-2",
+                "roomNumber": 2,
+                "roomType": "Double",
+                "nightPrice": 400.0,
+                "roomBookings": []
+            },
+            {
+                "roomId": "HOT-004-3",
+                "roomNumber": 3,
+                "roomType": "Suite",
+                "nightPrice": 850.0,
+                "roomBookings": []
             }
         ]
     }

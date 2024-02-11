@@ -31,6 +31,16 @@ public class Room {
     @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
     private List<RoomBooking> roomBookings;
 
+    public boolean isAvailable(LocalDate fromDate, LocalDate toDate) {
+        for (RoomBooking booking : roomBookings) {
+            LocalDate bookingCheckIn = booking.getCheckIn();
+            LocalDate bookingCheckOut = booking.getCheckOut();
+            if (fromDate.isBefore(bookingCheckOut) && toDate.isAfter(bookingCheckIn)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 }

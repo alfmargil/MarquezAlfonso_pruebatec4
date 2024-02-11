@@ -1,7 +1,10 @@
 package com.AlfonsoMarquez.PruebaTecnica4.service;
 
+import com.AlfonsoMarquez.PruebaTecnica4.DTO.HotelDTO;
+import com.AlfonsoMarquez.PruebaTecnica4.DTO.RoomDTO;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Hotel;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Room;
+import com.AlfonsoMarquez.PruebaTecnica4.model.RoomBooking;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IHotelRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +51,19 @@ public class HotelService implements IHotelService {
     }
 
     @Override
-    public List<Hotel> findAvailableHotels(LocalDate fromDate, LocalDate toDate, String destination) {
-        return null;
-
+    public List<RoomDTO> findAvailableRooms(LocalDate fromDate, LocalDate toDate, String destination) {
+    List<RoomDTO> availableRooms = new ArrayList<>();
+        for(Hotel hotel : hotelRepository.findByPlace(destination))
+        {
+            for(Room room : roomRepository.findByHotel(hotel))
+            {
+                if(room.isAvailable(fromDate,toDate))
+                {
+                    availableRooms.add(new RoomDTO(room.getRoomId(),room.getRoomNumber(),room.getRoomType(),room.getNightPrice(),hotel.getName()));
+                }
+            }
+        }
+    return availableRooms;
     }
 
 }
