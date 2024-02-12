@@ -24,6 +24,7 @@ public class Room {
     private Long roomNumber;
     private String roomType;
     private Double nightPrice;
+    private int roomSize;
     @ManyToOne
     @JoinColumn(name = "hotel_code")
     @JsonIgnore
@@ -41,6 +42,8 @@ public class Room {
         }
         return true;
     }
+
+
 
 
 }

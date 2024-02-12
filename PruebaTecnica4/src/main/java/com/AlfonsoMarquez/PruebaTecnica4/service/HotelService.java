@@ -59,7 +59,7 @@ public class HotelService implements IHotelService {
             {
                 if(room.isAvailable(fromDate,toDate))
                 {
-                    availableRooms.add(new RoomDTO(room.getRoomId(),room.getRoomNumber(),room.getRoomType(),room.getNightPrice(),hotel.getName()));
+                    availableRooms.add(new RoomDTO(room.getRoomId(),room.getRoomSize(),room.getRoomNumber(),room.getRoomType(),room.getNightPrice(),hotel.getName()));
                 }
             }
         }
