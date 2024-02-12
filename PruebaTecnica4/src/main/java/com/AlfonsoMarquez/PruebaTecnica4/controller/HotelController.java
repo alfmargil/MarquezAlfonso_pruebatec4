@@ -6,6 +6,7 @@ import com.AlfonsoMarquez.PruebaTecnica4.model.Hotel;
 import com.AlfonsoMarquez.PruebaTecnica4.service.IHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class HotelController {
         }
     }
 
-    @GetMapping("/listAll")
+    @GetMapping()
     public List<Hotel> getHotels() {
         return hotelService.getHotels();
     }
@@ -40,6 +41,18 @@ public class HotelController {
 
         List<RoomDTO> availableRooms = hotelService.findAvailableRooms(dateFrom, dateTo, destination);
         return ResponseEntity.ok(availableRooms);
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Hotel> updateHotel(@PathVariable String hotelCode, @RequestBody HotelDTO hotelDTO)
+    {
+        Hotel hotel = hotelService.findHotel(hotelCode);
+        if(hotel==null) {
+            return new ResponseEntity<>("No se encontró el Hotel a editar", HttpStatus.NOT_FOUND);
+        }else{
+            hotel.setName(hotelDTO.getName());
+            hotel.setPlace(hotelDTO.getPlace());
+            hotelService.saveHotel
     }
 
 

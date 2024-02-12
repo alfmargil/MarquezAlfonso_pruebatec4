@@ -37,6 +37,7 @@ public class FlightService implements IFlightService{
                     flightDTO.getSeatType(), flightDTO.getPricePerPerson(),
                     flightDTO.getDepartureDate());
             flight.setPlane(planeRepository.findByPlaneId(flightDTO.getPlaneId()));
+            flight.setCapacity(flight.getPlane().getCapacity());
             flightRepository.save(flight);
         }else{
             throw new Exception("No existe el avion para el que quiere guardar un vuelo");

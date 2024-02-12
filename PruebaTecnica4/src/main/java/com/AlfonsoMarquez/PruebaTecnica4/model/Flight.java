@@ -29,6 +29,7 @@ public class Flight {
     @JoinColumn(name = "plane_code")
     @JsonIgnore
     private Plane plane;
+    private int capacity;
      /*
     @JsonFormat(pattern = "dd/MM/yyyy")
     LocalDate returnDate;

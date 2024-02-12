@@ -27,5 +27,8 @@ public class Person {
     @ManyToMany(mappedBy = "hosts")
     @JsonIgnore
     private List<RoomBooking> roomBookings;
+    @ManyToMany(mappedBy = "passengers")
+    @JsonIgnore
+    private List<FlightBooking> flightBookings;
 
 }
