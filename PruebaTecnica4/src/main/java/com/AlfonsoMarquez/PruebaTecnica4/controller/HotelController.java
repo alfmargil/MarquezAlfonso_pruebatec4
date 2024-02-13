@@ -28,7 +28,7 @@ public class HotelController {
         }
     }
 
-    @GetMapping()
+    @GetMapping("/listAll")
     public List<Hotel> getHotels() {
         return hotelService.getHotels();
     }
@@ -37,25 +37,56 @@ public class HotelController {
     public ResponseEntity<List<RoomDTO>> getAvailableRooms(
             @RequestParam("dateFrom") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dateFrom,
             @RequestParam("dateTo") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dateTo,
-            @RequestParam("destination") String destination) {
-
+            @RequestParam("destination") String destination)
+    {
         List<RoomDTO> availableRooms = hotelService.findAvailableRooms(dateFrom, dateTo, destination);
         return ResponseEntity.ok(availableRooms);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Hotel> updateHotel(@PathVariable String hotelCode, @RequestBody HotelDTO hotelDTO)
+    public ResponseEntity<String> updateHotel(@PathVariable String id, @RequestParam String nombre, @RequestParam String place)
     {
-        Hotel hotel = hotelService.findHotel(hotelCode);
-        if(hotel==null) {
+        Hotel hotel = hotelService.findHotel(id);
+        if (hotel == null) {
             return new ResponseEntity<>("No se encontró el Hotel a editar", HttpStatus.NOT_FOUND);
-        }else{
-            hotel.setName(hotelDTO.getName());
-            hotel.setPlace(hotelDTO.getPlace());
-            hotelService.saveHotel
+        } else {
+            hotel.setName(nombre);
+            hotel.setPlace(place);
+            hotelService.saveHotel(hotel);
+            return new ResponseEntity<>("Hotel editado correctamente", HttpStatus.OK);
+
+        }
+
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteHotel(@PathVariable String id)
+    {
+        Hotel hotel = hotelService.findHotel(id);
+        if(hotel == null)
+        {
+            return new ResponseEntity<>("No se encontró el Hotel a eliminar", HttpStatus.NOT_FOUND);
+        } else {
+            try {
+                hotelService.deleteHotel(id);
+                return new ResponseEntity<>("Hotel eliminado correctamente",HttpStatus.OK);
 
+            } catch (Exception e) {
+                return new ResponseEntity<>("Error al eliminar el hotel: "+e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getHotel(@PathVariable String id)
+    {
+        Hotel hotel = hotelService.findHotel(id);
+        if(hotel == null)
+        {
+            return new ResponseEntity<>("Error, Hotel no encontrado", HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(hotel);
+    }
 
 
 }

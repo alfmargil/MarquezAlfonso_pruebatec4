@@ -12,7 +12,7 @@ public interface IHotelService {
     public List<Hotel> getHotels();
     public void saveHotel(Hotel hotel);
     public void saveHotelWithRooms(Hotel hotel);
-    public void deleteHotel(String code);
+    public void deleteHotel(String code) throws Exception;
     public Hotel findHotel(String code);
     public List<RoomDTO> findAvailableRooms(LocalDate fromDate, LocalDate toDate, String Destination);
 

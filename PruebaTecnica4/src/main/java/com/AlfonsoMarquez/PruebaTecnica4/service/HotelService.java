@@ -44,8 +44,19 @@ public class HotelService implements IHotelService {
     }
 
     @Override
-    public void deleteHotel(String code) {
+    public void deleteHotel(String code) throws Exception {
+        Hotel hotel = hotelRepository.getReferenceById(code);
+        for (Room room : hotel.getRooms()) {
+            if (!room.getRoomBookings().isEmpty()) {
+                throw new Exception("El hotel a eliminar tiene alguna reserva en la habitacion: " + room.getRoomId());
+            }
+        }
+        //Como no quiero que se haga un borrado parcial si a mitad del proceso se encuentra una reserva voy a volver a iterar sobre la lista y eliminarla
+        for (Room room : hotel.getRooms()) {
+            roomRepository.delete(room);
+        }
         hotelRepository.deleteById(code);
+
     }
 
     @Override
@@ -55,18 +66,15 @@ public class HotelService implements IHotelService {
 
     @Override
     public List<RoomDTO> findAvailableRooms(LocalDate fromDate, LocalDate toDate, String destination) {
-    List<RoomDTO> availableRooms = new ArrayList<>();
-        for(Hotel hotel : hotelRepository.findByPlace(destination))
-        {
-            for(Room room : roomRepository.findByHotel(hotel))
-            {
-                if(room.isAvailable(fromDate,toDate))
-                {
-                    availableRooms.add(new RoomDTO(room.getRoomId(),room.getRoomSize(),room.getRoomNumber(),room.getRoomType(),room.getNightPrice(),hotel.getName()));
+        List<RoomDTO> availableRooms = new ArrayList<>();
+        for (Hotel hotel : hotelRepository.findByPlace(destination)) {
+            for (Room room : roomRepository.findByHotel(hotel)) {
+                if (room.isAvailable(fromDate, toDate)) {
+                    availableRooms.add(new RoomDTO(room.getRoomId(), room.getRoomSize(), room.getRoomNumber(), room.getRoomType(), room.getNightPrice(), hotel.getName()));
                 }
             }
         }
-    return availableRooms;
+        return availableRooms;
     }
 
 }
