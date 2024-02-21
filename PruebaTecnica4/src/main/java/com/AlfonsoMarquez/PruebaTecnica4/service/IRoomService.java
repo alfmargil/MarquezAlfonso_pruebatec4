@@ -11,4 +11,7 @@ public interface IRoomService {
     public List<Room> getRooms();
     public void saveRoom(RoomDTO roomDTO) throws Exception;
     public Room findRoom(String id);
+    public void editRoom(String id, Double nightPrice, Integer roomSize, String roomType) throws Exception;
+
+    public void deleteRoom(String id) throws Exception;
 }

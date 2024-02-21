@@ -11,7 +11,6 @@ import java.util.List;
 public interface IHotelRepository extends JpaRepository<Hotel,String> {
 
     public List<Hotel> findByPlace(String place);
-    public Hotel findByName(String name);
     public long countByName(String name);
     public long countByPlace(String place);
 

@@ -10,12 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RoomDTO {
 
-
-    private String roomId;
+    
     private int roomSize;
     private Long roomNumber;
     private String roomType;
     private Double nightPrice;
-    private String hotelName;
+    private String hotelCode;
 
 }

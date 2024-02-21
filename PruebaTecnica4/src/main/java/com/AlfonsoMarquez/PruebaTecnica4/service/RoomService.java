@@ -40,15 +40,39 @@ public class RoomService implements IRoomService {
     @Override
     public void saveRoom(RoomDTO roomDTO) throws Exception {
         Room room = new Room();
-        Hotel hotel = hotelRepository.findByName(roomDTO.getHotelName());
+        Hotel hotel = hotelRepository.findById(roomDTO.getHotelCode()).orElse(null);
         if (hotel == null) throw new Exception("No existe el hotel al que añadir la habitacion");
+
         room.setRoomType(roomDTO.getRoomType());
         room.setNightPrice(roomDTO.getNightPrice());
         room.setRoomSize(roomDTO.getRoomSize());
         room.setHotel(hotel);
         room.setRoomNumber(roomDTO.getRoomNumber());
         room.setRoomId(hotel.getHotelCode() + "-" + room.getRoomNumber());
+        if(roomRepository.existsByHotelAndRoomNumber(hotel,room.getRoomNumber()))
+        {
+            throw new Exception("Ya existe una habitacion con el numero "+room.getRoomNumber()+" en el hotel "+hotel.getHotelCode());
+        }
         roomRepository.save(room);
+
+    }
+
+    @Override
+    public void editRoom(String id, Double nightPrice, Integer roomSize, String roomType) throws Exception {
+        Room room = roomRepository.findById(id).orElse(null);
+        if(room == null) throw new Exception("No existe la habitacion a editar");
+        if(nightPrice!=null) room.setNightPrice(nightPrice);
+        if(roomSize!=null) room.setRoomSize(roomSize);
+        if(roomType!=null) room.setRoomType(roomType);
+    }
+
+    @Override
+    public void deleteRoom(String id) throws Exception {
+
+        Room room = roomRepository.findById(id).orElse(null);
+        if(room == null) throw new Exception("No existe la habitacion a borrar");
+        if(!room.getRoomBookings().isEmpty()) throw new Exception("La habitacion tiene reservas asignadas");
+        roomRepository.delete(room);
 
     }
 }

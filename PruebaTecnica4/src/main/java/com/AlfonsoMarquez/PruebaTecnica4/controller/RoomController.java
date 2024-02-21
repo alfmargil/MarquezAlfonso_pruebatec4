@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class RoomController {
     private IRoomService roomService;
 
     @GetMapping()
-    public List<Room> getRooms(){
+    public List<Room> getRooms() {
         return roomService.getRooms();
     }
 
@@ -28,8 +29,7 @@ public class RoomController {
     public ResponseEntity<?> getRoom(@PathVariable String id)
     {
         Room room = roomService.findRoom(id);
-        if(room == null)
-        {
+        if (room == null) {
             return new ResponseEntity<>("Error, Hotel no encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(room);
@@ -40,11 +40,38 @@ public class RoomController {
     {
         try {
             roomService.saveRoom(roomDTO);
-            return new ResponseEntity<>("Habitacion guardada correctamente",HttpStatus.OK);
+            return new ResponseEntity<>("Habitacion guardada correctamente", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<String> editRoom(@RequestParam(required = false) Double nightPrice,
+                                           @RequestParam(required = false) Integer roomSize,
+                                           @RequestParam(required = false) String roomType,
+                                           @PathVariable String id)
+    {
+        try {
+            roomService.editRoom(id, nightPrice, roomSize, roomType);
+            return new ResponseEntity<>("Habtacion editada correctamente", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteRoom(@PathVariable String id)
+    {
+        try{
+            roomService.deleteRoom(id);
+            return new ResponseEntity<>("Habitacion borrada correctamente",HttpStatus.OK);
+        }catch (Exception e)
+        {
+            return new ResponseEntity<>("Error: "+e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
 }

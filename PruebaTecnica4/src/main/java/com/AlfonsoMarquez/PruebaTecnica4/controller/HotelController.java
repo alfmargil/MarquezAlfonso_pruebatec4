@@ -4,6 +4,7 @@ import com.AlfonsoMarquez.PruebaTecnica4.DTO.HotelDTO;
 import com.AlfonsoMarquez.PruebaTecnica4.DTO.RoomDTO;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Hotel;
 import com.AlfonsoMarquez.PruebaTecnica4.service.IHotelService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -28,11 +29,17 @@ public class HotelController {
     }
 
     @PostMapping("/newList")
-    public void loadHotels(@RequestBody List<Hotel> hotels)
+    public ResponseEntity<String> loadHotels(@RequestBody List<Hotel> hotels)
     {
+        try{
         for (Hotel hotel : hotels) {
             hotelService.saveHotelWithRooms(hotel);
         }
+                return new ResponseEntity<>("Hoteles y habitaciones guardados correctamente",HttpStatus.OK);
+            } catch (Exception e){
+                return new ResponseEntity<>("Error: "+e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
     }
 
     @GetMapping("/listAll")

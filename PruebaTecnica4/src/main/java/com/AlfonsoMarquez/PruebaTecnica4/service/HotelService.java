@@ -28,12 +28,16 @@ public class HotelService implements IHotelService {
     }
 
     @Override
-    public void saveHotelWithRooms(Hotel hotel) {
+    public void saveHotelWithRooms(Hotel hotel) throws Exception {
         hotelRepository.save(hotel);
         if (!hotel.getRooms().isEmpty()) {
             for (Room room : hotel.getRooms()) {
                 room.setHotel(hotel);
                 room.setRoomId(hotel.getHotelCode() + "-" + room.getRoomNumber());
+                if(roomRepository.existsByHotelAndRoomNumber(hotel,room.getRoomNumber()))
+                {
+                    throw new Exception("Ya existe una habitacion con el numero "+room.getRoomNumber()+" en el hotel "+hotel.getHotelCode());
+                }
                 roomRepository.save(room);
             }
         }
@@ -84,7 +88,7 @@ public class HotelService implements IHotelService {
         for (Hotel hotel : hotelRepository.findByPlace(destination)) {
             for (Room room : roomRepository.findByHotel(hotel)) {
                 if (room.isAvailable(fromDate, toDate)) {
-                    availableRooms.add(new RoomDTO(room.getRoomId(), room.getRoomSize(), room.getRoomNumber(), room.getRoomType(), room.getNightPrice(), hotel.getName()));
+                    availableRooms.add(new RoomDTO(room.getRoomSize(), room.getRoomNumber(), room.getRoomType(), room.getNightPrice(), hotel.getName()));
                 }
             }
         }

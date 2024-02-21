@@ -11,7 +11,7 @@ public interface IHotelService {
 
     public List<Hotel> getHotels();
     public void saveHotel(Hotel hotel);
-    public void saveHotelWithRooms(Hotel hotel);
+    public void saveHotelWithRooms(Hotel hotel) throws Exception;
 
     public void saveHotelDTO(HotelDTO hotelDTO);
 
