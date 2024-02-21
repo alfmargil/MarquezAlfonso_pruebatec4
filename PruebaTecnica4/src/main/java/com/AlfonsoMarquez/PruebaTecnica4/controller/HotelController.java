@@ -21,6 +21,13 @@ public class HotelController {
     private IHotelService hotelService;
 
     @PostMapping("/new")
+    public ResponseEntity<String> newHotel(@RequestBody HotelDTO hotelDTO)
+    {
+        hotelService.saveHotelDTO(hotelDTO);
+        return new ResponseEntity<>("Hotel guardado correctamente",HttpStatus.OK);
+    }
+
+    @PostMapping("/newList")
     public void loadHotels(@RequestBody List<Hotel> hotels)
     {
         for (Hotel hotel : hotels) {

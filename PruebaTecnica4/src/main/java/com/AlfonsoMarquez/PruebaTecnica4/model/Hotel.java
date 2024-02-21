@@ -17,11 +17,13 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Getter@Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Hotel {
+
     @Id
     private String hotelCode;
     private String name;
@@ -29,29 +31,7 @@ public class Hotel {
     @OneToMany(mappedBy = "hotel")
     private List<Room> rooms;
 
-    /* CAMBIAR A OTRO SITIO
 
-    public static String buildString(List<String> words) {
-        StringBuilder result = new StringBuilder();
 
-        for (String word : words) {
-            result.append(word).append(" ");
-        }
 
-        return result.toString().trim();
-    }
-
-    public static List<String> splitWords(String texto) {
-        List<String> wordsList = new ArrayList<>();
-        Pattern pattern = Pattern.compile("[A-Z][a-z]*|[a-z]+");
-        Matcher matcher = pattern.matcher(texto);
-
-        while (matcher.find()) {
-            wordsList.add(matcher.group());
-        }
-
-        return wordsList;
-    }
-
-    */
 }

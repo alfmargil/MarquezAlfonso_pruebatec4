@@ -1,17 +1,18 @@
 package com.AlfonsoMarquez.PruebaTecnica4.service;
 
+import com.AlfonsoMarquez.PruebaTecnica4.DTO.HotelDTO;
 import com.AlfonsoMarquez.PruebaTecnica4.DTO.RoomDTO;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Hotel;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Room;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IHotelRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IRoomRepository;
+import com.AlfonsoMarquez.PruebaTecnica4.util.WordSplitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HotelService implements IHotelService {
@@ -40,6 +41,19 @@ public class HotelService implements IHotelService {
 
     @Override
     public void saveHotel(Hotel hotel) {
+        hotelRepository.save(hotel);
+    }
+
+    @Override
+    public void saveHotelDTO(HotelDTO hotelDTO) {
+        Hotel hotel = new Hotel();
+        hotel.setPlace(hotelDTO.getPlace());
+        hotel.setName(hotelDTO.getName());
+        String cityCode = WordSplitter.getFirstThreeLetters(hotel.getPlace().toUpperCase());
+        long hotelCount = hotelRepository.countByPlace(hotelDTO.getPlace())+1;
+        String hotelCountString = String.format("%03d", (hotelCount));
+        String hotelCode = cityCode+"-"+hotelCountString;
+        hotel.setHotelCode(hotelCode);
         hotelRepository.save(hotel);
     }
 
