@@ -51,3 +51,6 @@ La API cuenta con los siguientes campos:
 ## Documentación
 
 Apenas he comentado los métodos, ya que la mayoría se puede saber que hacen por su nombre. Algún método más complejo si ha sido comentado
+
+![imagen](https://github.com/alfmargil/MarquezAlfonso_pruebatec4/assets/61694217/9873f32e-1e8b-45b1-975d-c63f2f81dbf2)
+
