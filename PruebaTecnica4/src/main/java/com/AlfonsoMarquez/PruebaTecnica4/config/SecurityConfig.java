@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .and()
                 .formLogin().permitAll() // Permitir acceso al formulario de login
                 .and()
+                .httpBasic()
+                .and()
                 .build();
     }
 
