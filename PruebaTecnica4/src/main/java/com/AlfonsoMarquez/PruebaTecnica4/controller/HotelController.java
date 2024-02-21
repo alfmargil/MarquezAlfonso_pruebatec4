@@ -4,7 +4,6 @@ import com.AlfonsoMarquez.PruebaTecnica4.DTO.HotelDTO;
 import com.AlfonsoMarquez.PruebaTecnica4.DTO.RoomDTO;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Hotel;
 import com.AlfonsoMarquez.PruebaTecnica4.service.IHotelService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;

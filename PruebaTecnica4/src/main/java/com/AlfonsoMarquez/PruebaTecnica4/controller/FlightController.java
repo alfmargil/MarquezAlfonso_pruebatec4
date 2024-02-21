@@ -2,12 +2,8 @@ package com.AlfonsoMarquez.PruebaTecnica4.controller;
 
 import com.AlfonsoMarquez.PruebaTecnica4.DTO.FlightDTO;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Flight;
-import com.AlfonsoMarquez.PruebaTecnica4.model.Hotel;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Plane;
-import com.AlfonsoMarquez.PruebaTecnica4.repository.IPlaneRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.service.IFlightService;
-import com.AlfonsoMarquez.PruebaTecnica4.service.IHotelService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;

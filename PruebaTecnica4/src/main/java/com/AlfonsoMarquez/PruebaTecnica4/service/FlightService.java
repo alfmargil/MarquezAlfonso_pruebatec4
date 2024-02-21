@@ -8,12 +8,10 @@ import com.AlfonsoMarquez.PruebaTecnica4.repository.IFlightBookingRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IFlightRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IPlaneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

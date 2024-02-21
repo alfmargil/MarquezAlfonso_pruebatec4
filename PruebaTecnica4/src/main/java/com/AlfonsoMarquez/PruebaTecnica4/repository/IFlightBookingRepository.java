@@ -1,6 +1,5 @@
 package com.AlfonsoMarquez.PruebaTecnica4.repository;
 
-import com.AlfonsoMarquez.PruebaTecnica4.model.Flight;
 import com.AlfonsoMarquez.PruebaTecnica4.model.FlightBooking;
 import org.springframework.data.jpa.repository.JpaRepository;
 

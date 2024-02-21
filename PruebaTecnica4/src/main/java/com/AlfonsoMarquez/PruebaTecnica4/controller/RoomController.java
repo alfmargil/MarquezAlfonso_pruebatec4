@@ -1,16 +1,13 @@
 package com.AlfonsoMarquez.PruebaTecnica4.controller;
 
 import com.AlfonsoMarquez.PruebaTecnica4.DTO.RoomDTO;
-import com.AlfonsoMarquez.PruebaTecnica4.model.Hotel;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Room;
 import com.AlfonsoMarquez.PruebaTecnica4.service.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
 import java.util.List;
 
 @RestController

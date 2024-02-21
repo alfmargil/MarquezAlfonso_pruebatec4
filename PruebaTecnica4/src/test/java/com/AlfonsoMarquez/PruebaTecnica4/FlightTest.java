@@ -1,9 +1,10 @@
 package com.AlfonsoMarquez.PruebaTecnica4;
 
-import com.AlfonsoMarquez.PruebaTecnica4.model.Hotel;
-import com.AlfonsoMarquez.PruebaTecnica4.repository.IHotelRepository;
-import com.AlfonsoMarquez.PruebaTecnica4.service.HotelService;
+import com.AlfonsoMarquez.PruebaTecnica4.model.Flight;
+import com.AlfonsoMarquez.PruebaTecnica4.repository.IFlightRepository;
+import com.AlfonsoMarquez.PruebaTecnica4.service.FlightService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -15,11 +16,11 @@ public class FlightTest {
 
 
     @Mock
-    private IHotelRepository hotelRepository;
+    private IFlightRepository flightRepository;
 
     @InjectMocks
-    private HotelService hotelService;
-    private List<Hotel> mockList;
+    private FlightService flightService;
+    private List<Flight> mockList;
 
     @BeforeEach
     void setUp()
@@ -27,6 +28,13 @@ public class FlightTest {
         MockitoAnnotations.openMocks(this);
         mockList = new ArrayList<>();
     }
+
+    @Test
+    public void getFlights()
+    {
+        
+    }
+
 
 
 }

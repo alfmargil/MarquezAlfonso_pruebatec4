@@ -1,9 +1,6 @@
 package com.AlfonsoMarquez.PruebaTecnica4.model;
 
-import com.AlfonsoMarquez.PruebaTecnica4.util.BooleanDeserializer;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

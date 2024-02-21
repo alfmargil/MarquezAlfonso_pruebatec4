@@ -1,11 +1,7 @@
 package com.AlfonsoMarquez.PruebaTecnica4.DTO;
 
 import com.AlfonsoMarquez.PruebaTecnica4.model.Flight;
-import com.AlfonsoMarquez.PruebaTecnica4.model.Plane;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
