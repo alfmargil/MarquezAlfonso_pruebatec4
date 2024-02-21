@@ -35,6 +35,14 @@ public class FlightService implements IFlightService{
 
     @Override
     public void saveFlight(FlightDTO flightDTO) throws Exception {
+
+        Plane plane = planeRepository.findByPlaneId(flightDTO.getPlaneId());
+        boolean isAvailable = flightRepository.countByPlaneAndDepartureDate(plane, flightDTO.getDepartureDate()) == 0;
+        if(!isAvailable)
+        {
+            throw new Exception("El avion ya tiene un vuelo en esa fecha");
+        }
+
         if(planeRepository.findById(flightDTO.getPlaneId()).isPresent())
         {
             Flight flight = new Flight(flightDTO.getOrigin(), flightDTO.getDestination(),
@@ -46,9 +54,6 @@ public class FlightService implements IFlightService{
         }else{
             throw new Exception("No existe el avion para el que quiere guardar un vuelo");
         }
-
-
-
     }
 
     // Elimina un vuelo y sus reservas
@@ -99,6 +104,8 @@ public class FlightService implements IFlightService{
 
         return availableFlights;
     }
+
+    //Este es el metodo que hay que usar para borrar, ya que comprueba que no haya reservas. El otro borrar es un borrado bruto
 
     @Override
     public void safeDeleteFlight(String code) throws Exception {
