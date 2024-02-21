@@ -7,6 +7,7 @@ import com.AlfonsoMarquez.PruebaTecnica4.model.Plane;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IPlaneRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.service.IFlightService;
 import com.AlfonsoMarquez.PruebaTecnica4.service.IHotelService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,6 @@ public class FlightController {
     @Autowired
     private IFlightService flightService;
 
-
-
     @PostMapping("/loadFlights")
     public void loadFlightBatch(@RequestBody List<Flight> flights)
     {
@@ -39,10 +38,18 @@ public class FlightController {
     }
 
     @GetMapping("")
-    public List<Flight> getFlights(){
-
+    public List<Flight> getFlights() {
         return flightService.getFlights();
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getFlightById(@PathVariable String id) {
+        try {
+            Flight flight = flightService.findFlight(id);
+            return ResponseEntity.ok(flight);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/newPlane")
@@ -51,8 +58,7 @@ public class FlightController {
         try {
             flightService.savePlane(plane);
             return new ResponseEntity<>("Avion guardado correctamente", HttpStatus.CREATED);
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             return new ResponseEntity<>("Error al guardar el avion: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -60,11 +66,10 @@ public class FlightController {
     @PostMapping("/new")
     public ResponseEntity<String> saveFlight(@RequestBody FlightDTO flightDTO)
     {
-        try{
+        try {
             flightService.saveFlight(flightDTO);
             return new ResponseEntity<>("Vuelo guardado correctamente", HttpStatus.CREATED);
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             return new ResponseEntity<>("Error al guardar el vuelo: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -76,10 +81,62 @@ public class FlightController {
             @RequestParam("origin") String origin,
             @RequestParam("destination") String destination)
     {
-
-        List<FlightDTO> availableFlights = flightService.findFlightsWithDate(dateFrom,dateTo,origin,destination);
+        List<FlightDTO> availableFlights = flightService.findFlightsWithDate(dateFrom, dateTo, origin, destination);
         return ResponseEntity.ok(availableFlights);
     }
+    // He añadido la opcion de poder cambiar un vuelo de avion de forma opcional
 
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<String> updateFlight(@PathVariable String id, @RequestParam String origin,
+                                               @RequestParam String destination, @RequestParam Double pricePerPerson,
+                                               @RequestParam String seatType,
+                                               @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate departureDate,
+                                               @RequestParam(required = false) Long planeId)
+    {
+        Flight flight = null;
+        try {
+            FlightDTO flightDTO = new FlightDTO();
+            flightDTO.setPlaneId(flightService.findFlight(id).getPlane().getPlaneId());
+            flightDTO.setOrigin(origin);
+            flightDTO.setDestination(destination);
+            flightDTO.setDepartureDate(departureDate);
+            flightDTO.setPricePerPerson(pricePerPerson);
+            flightDTO.setSeatType(seatType);
+            if (planeId != null) {
+                flightDTO.setPlaneId(planeId);
+            }
+            try {
+                flightService.saveFlight(flightDTO);
+                if (flightDTO.getFlightCode() != id) {
+                    flightService.deleteFlight(id);
+                }
+                return new ResponseEntity<>("Vuelo actualizado correctamente", HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>("Error al actualizar el vuelo: " + e.getMessage(), HttpStatus.NOT_FOUND);
+            }
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteFlight(@PathVariable String id)
+    {
+        try {
+            flightService.safeDeleteFlight(id);
+            return new ResponseEntity<>("Vuelo borrado correctamente", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al borrar el vuelo: " + e.getMessage(), HttpStatus.NOT_FOUND);
+
+        }
+    }
+
+    @GetMapping("/planes")
+    public List<Plane> getPlanes()
+    {
+        return flightService.getPlanes();
+    }
 
 }

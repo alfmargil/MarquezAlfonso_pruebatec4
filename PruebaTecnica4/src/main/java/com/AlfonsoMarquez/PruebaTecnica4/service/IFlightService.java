@@ -12,8 +12,10 @@ public interface IFlightService {
     public List<Flight> getFlights();
     public void saveFlight(FlightDTO flightDTO) throws Exception;
     public void deleteFlight(String code);
-    public Flight findFlight(String code);
+    public void safeDeleteFlight(String code) throws Exception;
+    public Flight findFlight(String code) throws Exception;
     public void savePlane(Plane plane) throws Exception;
     public List<FlightDTO> findFlightsWithDate(LocalDate dateFrom, LocalDate dateTo, String origin, String destination);
+    public List<Plane> getPlanes();
 
 }

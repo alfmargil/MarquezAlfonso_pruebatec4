@@ -60,7 +60,7 @@ public class HotelController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteHotel(@PathVariable String id)
+    public ResponseEntity<String> deleteHotel(@PathVariable String id)
     {
         Hotel hotel = hotelService.findHotel(id);
         if(hotel == null)

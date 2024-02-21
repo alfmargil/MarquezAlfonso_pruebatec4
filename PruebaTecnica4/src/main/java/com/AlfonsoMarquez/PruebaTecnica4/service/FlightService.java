@@ -2,7 +2,9 @@ package com.AlfonsoMarquez.PruebaTecnica4.service;
 
 import com.AlfonsoMarquez.PruebaTecnica4.DTO.FlightDTO;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Flight;
+import com.AlfonsoMarquez.PruebaTecnica4.model.FlightBooking;
 import com.AlfonsoMarquez.PruebaTecnica4.model.Plane;
+import com.AlfonsoMarquez.PruebaTecnica4.repository.IFlightBookingRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IFlightRepository;
 import com.AlfonsoMarquez.PruebaTecnica4.repository.IPlaneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class FlightService implements IFlightService{
     private IFlightRepository flightRepository;
     @Autowired
     private IPlaneRepository planeRepository;
+    @Autowired
+    private IFlightBookingRepository flightBookingRepository;
 
 
     @Override
@@ -47,15 +51,30 @@ public class FlightService implements IFlightService{
 
     }
 
+    // Elimina un vuelo y sus reservas
     @Override
     public void deleteFlight(String code) {
-
+        Flight flight = flightRepository.getReferenceById(code);
+        List<FlightBooking> bookings = flightBookingRepository.findByFlightFlightCode(code);
+        for(FlightBooking booking : bookings)
+        {
+                flightBookingRepository.delete(booking);
+        }
         flightRepository.deleteById(code);
     }
 
     @Override
-    public Flight findFlight(String code) {
-        return flightRepository.findById(code).orElse(null);
+    public Flight findFlight(String code)throws Exception{
+
+        Flight flight = flightRepository.findById(code).orElse(null);
+
+        if(flight==null)
+        {
+            throw new Exception("El vuelo no existe");
+        }else {
+            return flight;
+        }
+
     }
 
     @Override
@@ -79,5 +98,21 @@ public class FlightService implements IFlightService{
                 .collect(Collectors.toList());
 
         return availableFlights;
+    }
+
+    @Override
+    public void safeDeleteFlight(String code) throws Exception {
+        Flight flight = flightRepository.getReferenceById(code);
+        List<FlightBooking> bookings = flightBookingRepository.findByFlightFlightCode(code);
+        if(!bookings.isEmpty())
+        {
+            throw new Exception("No se puede borrar el vuelo porque tiene reservas");
+        }
+        flightRepository.deleteById(code);
+    }
+
+    @Override
+    public List<Plane> getPlanes() {
+        return planeRepository.findAll();
     }
 }

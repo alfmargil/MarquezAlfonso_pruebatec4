@@ -30,6 +30,7 @@ public class Flight {
     @JsonIgnore
     private Plane plane;
     private int capacity;
+
      /*
     @JsonFormat(pattern = "dd/MM/yyyy")
     LocalDate returnDate;
@@ -46,6 +47,7 @@ public class Flight {
 
     public static String generateFlightCode(String origin, String destination)
     {
+
         String originCode = origin.substring(0, Math.min(origin.length(), 2)).toUpperCase();
         String destinationCode = destination.substring(0, Math.min(destination.length(), 2)).toUpperCase();
         Random random = new Random();
