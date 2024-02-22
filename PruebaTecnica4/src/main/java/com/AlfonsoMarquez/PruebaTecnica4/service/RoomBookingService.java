@@ -30,6 +30,15 @@ public class RoomBookingService implements IRoomBookingService{
     @Override
     public double saveRoomBooking(RoomBookingDTO roomBookingDTO) throws Exception {
 
+        RoomBooking existingBooking = bookingRepository.findByRoomIdAndDatesAndHosts(
+                roomBookingDTO.getRoomId(),
+                roomBookingDTO.getCheckIn(),
+                roomBookingDTO.getCheckOut(),
+                roomBookingDTO.getHosts());
+        if (existingBooking != null) {
+            throw new Exception("Ya existe una reserva con los mismos datos");
+        }
+
         if(roomBookingDTO.getHosts().size()>roomRepository.findByRoomId(roomBookingDTO.getRoomId()).getRoomSize())
         {
             throw new Exception("Más gente de la permitida");

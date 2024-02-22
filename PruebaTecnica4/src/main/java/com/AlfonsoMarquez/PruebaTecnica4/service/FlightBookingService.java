@@ -29,6 +29,16 @@ public class FlightBookingService implements IFlightBookingService {
 
     @Override
     public double saveFlightBooking(FlightBookingDTO flightBookingDTO) throws Exception {
+
+        FlightBooking existingBooking = flightBookingRepository.findByFlightCodeAndDepartureDateAndPassengers(
+                flightBookingDTO.getFlightCode(),
+                flightBookingDTO.getDepartureDate(),
+                flightBookingDTO.getPassengers());
+        if (existingBooking != null) {
+            throw new Exception("Ya existe una reserva de vuelo con los mismos datos");
+        }
+
+
         if (flightBookingDTO.getPassengers().size() > flightRepository.findById(flightBookingDTO.getFlightCode()).get().getCapacity())
         {
             throw new Exception("No quedan suficientes plazas en el vuelo");
